@@ -31,19 +31,16 @@ def login_view(request):
 
         # Attempt to sign user in
         username = request.POST["username"]
-        #password = request.POST["password"]
-        #user = authenticate(request, username=username, password=password)
-        user = authenticate(request, username=username) 
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)  
         # Check if authentication successful
-        #if user is not None:
-        #    login(request, user)
-        #    return HttpResponseRedirect(reverse("index"))
-        #else:
-        #    return render(request, "network/login.html", {
-        #        "message": "Invalid username and/or password."
-        #    })
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "network/login.html", {
+                "message": "Invalid username and/or password."
+            })
     else:
         if request.user.is_anonymous:
             return render(request, "network/login.html")
