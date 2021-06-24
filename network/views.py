@@ -33,6 +33,7 @@ def login_view(request):
         username = request.POST["username"]
         #password = request.POST["password"]
         #user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username) 
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
         # Check if authentication successful
